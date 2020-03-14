@@ -3,3 +3,5 @@
 
 # VsCode
 .vscode/
+
+node_modules/
