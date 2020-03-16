@@ -1,0 +1,14 @@
+{
+  "name": "spidergap-js-challenges",
+  "version": "1.0.0",
+  "description": "Questions and answers to JS challenges",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Chris Maina",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}
