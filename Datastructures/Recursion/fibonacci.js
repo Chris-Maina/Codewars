@@ -2,7 +2,7 @@
  * Fibonnaci series example [0, 1, 1, 2, 3, 5, 8, 13, 21, ...]
  * The sum of the preceeding 2 numbers gives you the third.
  * You should return the item at position n
- * fib(5) = 5, fib(6) = 13
+ * fib(5) = 5, fib(6) = 8
  * @param {number} n 
  * 
  * Below is the iterative solution
@@ -30,6 +30,24 @@ const fib = (n) => {
   }
   return fib(n-1)+fib(n-2);
 }
+
+/**
+ * @param {number} n
+ * @param {object} cache
+ * @returns {number} result
+ */
+const memoizeFib = (n, cache = {}) => {
+  if (n < 2) {
+    return n;
+  }
+  if (cache[n]) {
+    return cache[n];
+  }
+  const result = memoizeFib(n-1, cache)+memoizeFib(n-2, cache);
+  cache[n] = result;
+  return result;
+}
+
 
 /**
  * Stores the arguments and result of a function
