@@ -45,22 +45,22 @@ var traverse = (root, arr) => {
 }
 
 // Iterative approach
+/**
+ * Pushes the root node, followed by right and lastly left node.
+ * right child is pushed first so that left is processed first
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
 var preorderTraversal = function(root) {
-  let arr = [];
+  const arr = [];
+  const stack = [];
   if (!root) return arr;
-  let previous;
-  let current = root;
-  while(current) {
+  stack.push(root);
+  while(stack.length) {
+    let current = stack.pop();
     arr.push(current.val);
-    if (current.left) {
-      previous = current;
-      current = current.left;
-    }
-    if (previous && previous.right) {
-      current = previous.right;
-    }
-    previous = current;
+    current.right && stack.push(current.right);
+    current.left && stack.push(current.left);
   }
-  arr.push(current.val);
   return arr;
 }
