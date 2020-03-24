@@ -1,5 +1,5 @@
 /**
- * 
+ * Preorder traversal uses a stack
  Given a binary tree, return the preorder traversal of its nodes' values.
   Example:
 
@@ -20,9 +20,8 @@
  *     this.left = this.right = null;
  * }
  */
-
- // Recursive approach
 /**
+ * Recursive approach
  * @param {TreeNode} root
  * @return {number[]}
  */
@@ -43,9 +42,8 @@ var traverse = (root, arr) => {
   root.right && traverse(root.right, arr);
   return arr;
 }
-
-// Iterative approach
 /**
+ * Iterative approach
  * Pushes the root node, followed by right and lastly left node.
  * right child is pushed first so that left is processed first
  * @param {TreeNode} root

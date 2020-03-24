@@ -1,4 +1,5 @@
 /**
+ * Postorder traversal uses a stack
  Given a binary tree, return the postorder traversal of its nodes' values.
 
  Example:
@@ -12,6 +13,7 @@
 
  Output: [3,2,1]
  */
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
