@@ -23,19 +23,15 @@ Given 1->2->3->4, you should return the list as 2->1->4->3.
  * @return {ListNode}
  */
 var swapPairs = function(head) {
-  swapHelper(head);
-  return head;
+  if (!head || !head.next) return head;
+  swap(head);
+  return head; 
 };
 
-var swapHelper = function(head) {
-  let val;
-  let nextVal;
-  if(!head || !head.next) {
-      return;
-  }
-  val = head.val;
-  nextVal = head.next.val;
-  head.val = nextVal;
-  head.next.val = val;
-  return swapHelper(head.next.next);
+var swap = function(head) {
+  if (!head || !head.next) return null;
+  let temp = head.val;
+  head.val = head.next.val;
+  head.next.val = temp;
+  swap(head.next.next);
 }
