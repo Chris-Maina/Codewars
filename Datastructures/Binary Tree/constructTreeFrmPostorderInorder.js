@@ -21,6 +21,8 @@
    
  */
 
+/////////////////// SOLUTION //////////////////////////////////
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -43,6 +45,7 @@ var buildTree = function(inorder, postorder) {
    let root = postorder[postorder.length - 1];
    let rootIndex = inorder.indexOf(root);
    root = new TreeNode(root);
+   postorder.splice(postorder.length - 1, 1);
    root.left =  getNode(inorder.slice(0, rootIndex), postorder);
    root.right = getNode(inorder.slice(rootIndex+1), postorder);
    return root;
@@ -68,6 +71,10 @@ var getNode = function(inorder, postorder) {
    rootIndex = inorder.indexOf(root);   
  }
  root = new TreeNode(root);
+
+ // remove root visited to reduce iterations of the while loop above
+ postorder.splice(rootPostn - 1, 1);
+ 
  root.left =  getNode(inorder.slice(0, rootIndex), postorder);
  root.right = getNode(inorder.slice(rootIndex+1), postorder);
 
