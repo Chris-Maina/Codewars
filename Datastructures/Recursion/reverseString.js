@@ -22,15 +22,16 @@ You may assume all the characters consist of printable ascii characters.
  * @return {void} Do not return anything, modify s in-place instead.
  */
 var reverseString = function(s) {
-  return helper(0, s)
+  if (!s.length) return null;
+  return helper(0, s, s.length-1);
 };
 
-var helper = function(index, s) {
-  let poppedItem;
-  if (index === s.length) return s;
-  poppedItem = s.pop();
-  s.splice(index,0, poppedItem);
-  return helper(index + 1, s)
+var helper = function(index, s, end) {
+  if (index > end) return s;
+  let temp = s[index];
+  s[index] = s[end];
+  s[end]=temp;
+  return helper(index + 1, s, end - 1)
 }
 
 console.log(reverseString(["h","e","l","l","o"]))
