@@ -28,14 +28,17 @@ Explanation: There are three ways to climb to the top.
  * @return {number}
  */
 var climbStairs = function(n) {
-  return memoizedClimbingStairs(n) 
+  return memoizedClimbStairs(n) 
 };
 
 var memoizedClimbStairs = function(n, cache = {}) {
   if (cache[n]) return cache[n];
-  if (n === 1) return 1;
-  if (n === 2) return 2;
-  let result = memoizedClimbStairs(n-1, cache) + memoizedClimbStairs(n-2, cache);
+  let result;
+  if (n === 1 || n === 2) { 
+    result = n
+  } else {
+    result = memoizedClimbStairs(n-1, cache) + memoizedClimbStairs(n-2, cache);
+  }
   cache[n] = result;
   return result;
 }

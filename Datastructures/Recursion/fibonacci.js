@@ -32,18 +32,23 @@ const fib = (n) => {
 }
 
 /**
+ * Memoized Recursive solution
  * @param {number} n
  * @param {object} cache
  * @returns {number} result
  */
+const fib = (n) => {
+  return memoizeFib(n);
+}
+
 const memoizeFib = (n, cache = {}) => {
+  if (cache[n]) return cache[n];
+  let result; 
   if (n < 2) {
-    return n;
+    result = n;
+  } else {
+    result = memoizeFib(n-1, cache)+memoizeFib(n-2, cache);
   }
-  if (cache[n]) {
-    return cache[n];
-  }
-  const result = memoizeFib(n-1, cache)+memoizeFib(n-2, cache);
   cache[n] = result;
   return result;
 }
