@@ -28,6 +28,11 @@ var reverseList = function(head) {
   return previous;                                                                   
 };
 
+/**
+ * Builds/Populates the new tree i.e. previous
+ * @param {ListNode} head 
+ * @param {ListNode} previous 
+ */
 var reverse = function(head, previous) {
   let node;
   if (!head) {
