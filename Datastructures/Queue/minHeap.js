@@ -33,6 +33,9 @@ class MinHeap {
 
   size = () => this.items.length;
 
+  /**
+   * Starts bubbling from the last item on the queue.
+   */
   bubbleUp = () => {
     let index = this.size() - 1;
 
@@ -45,6 +48,9 @@ class MinHeap {
     }
   };
 
+  /**
+   * Starts bubbling from the first item in the queue
+   */
   bubbleDown = () => {
     let index = 0;
     while (this.hasLeftChild(index)) {
@@ -61,6 +67,9 @@ class MinHeap {
     }
   };
 
+  /**
+   * Polling is deleting. Normally delete the first item i.e. root.
+   */
   poll = () => {
     this.items.shift();
     const lastItem = this.items[this.size() - 1];
