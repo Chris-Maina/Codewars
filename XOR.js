@@ -5,7 +5,7 @@
  * @param {string} 
  * @returns {number}
  */
-X = input => {
+XORGenerator = input => {
 
   /**
    * Create an array from string input

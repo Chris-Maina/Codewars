@@ -8,7 +8,8 @@
 //   palindrome("abcdefg") === false
 
 const palindrome = (str) => {
-  // reversed = str.split('').reverse().join('');
-  const reversed = str.split('').reduce((rev, char) => char + rev, '');
+  // reversed = str.split('').reverse().join(''); // mutate the array using reverse()
+  const reversed = str.split('').reduce((rev, char) => char + rev, ''); // Creates a new array
   return reversed === str;
 }
+console.log(palindrome('race car'));

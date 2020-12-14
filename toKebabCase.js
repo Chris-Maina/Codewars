@@ -3,6 +3,6 @@
  * @summary converts a string to kebab case
  * @param {Sting} str - string to convert
  */
-toKebabCase = str => (str.split(' ').join('-').toLowerCase());
+toKebabCase = str => (str.split(/_|\s/g).join('-').toLowerCase());
 
-toKebabCase('Incredibles 2');
+console.log(toKebabCase('the stealth warrior'));
