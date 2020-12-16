@@ -24,27 +24,51 @@ var levelOrder = function (root) {
     const queue = [];
     if (!root) return levels;
     queue.push(root);
-    levels.push([root.val]);
     while (queue.length) {
-        let left;
-        let right;
         let store = [];
         let len = queue.length;
 
-        for (let i = 0; i < len; i++) {
+        while (len) {
             let current = queue.shift();
-            if (current && current.left) {
-                left = current.left;
-                store.push(left.val)
-                queue.push(left);
-            }
-            if (current && current.right) {
-                right = current.right;
-                store.push(right.val)
-                queue.push(right);
-            }
+            current.left && queue.push(current.left);
+            current.right && queue.push(current.right);
+            store.push(current.val)
+            len--;
         }
         store.length && levels.push(store)
     }
     return levels;
 };
+
+// Recursive solution
+var levelOrder = function(root) {
+    let levels = [];
+    if (!root) return levels;
+
+    const queue = [];
+    queue.push(root);
+    levels = levelOrderTraversal(queue, levels)
+    return levels;
+};
+
+function levelOrderTraversal(queue, levels) {
+    let len = queue.length;
+    if (!len) return levels;
+
+    const level = [];
+    while (len) {
+        const front = queue.shift();
+        if (front.left) {
+            // populate queue
+            queue.push(front.left);
+        }
+        if (front.right) {
+            // populate queue
+            queue.push(front.right);
+        }
+        level.push(front.val);
+        len--;
+    }
+    level.length && levels.push(level);
+    return levelOrderTraversal(queue, levels);
+}
