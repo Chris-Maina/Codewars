@@ -32,10 +32,6 @@
 var findPeakElement = function(nums) {
     if (!nums || !nums.length || nums.length === 1) return 0;
     
-    if (nums.length === 2) {
-      if (nums[0] < nums[1]) return 1;
-      return 0;
-    }
     return searchPeakElement(nums, left = 0, right = nums.length-1)
  };
  
@@ -73,28 +69,29 @@ var findPeakElement = function(nums) {
  * @return {number}
  */
 var findPeakElement = function(nums) {
-    if (!nums || !nums.length || nums.length === 1) return 0;
-    
-    if (nums.length === 2) {
-      if (nums[0] < nums[1]) return 1;
-      return 0;
-    }
-    let left = 0;
-    let right = nums.length;
-    while (left <= right) {
+  if (!nums || !nums.length || nums.length === 1) return 0;
+  
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
       let middle = Math.floor(left + (right - left)/2);
- 
-      if (middle === 0 && nums[middle] > nums[middle+1]) return middle; 
-      
+
+      // first element
+      if (middle === 0 && nums[middle] > nums[middle+1]) return middle;
+    
+      // last element
       if (middle === nums.length-1 && nums[middle] > nums[middle-1]) return middle;
-      
-      if (nums[middle] > nums[middle + 1] && nums[middle] > nums[middle - 1]) return middle;
-      
+    
+      if (nums[middle] > nums[middle -1] && nums[middle] > nums[middle + 1]) return middle;
+    
       if (nums[middle] < nums[middle + 1]) {
-         left = middle + 1
+        // go right, the next element
+        left = middle + 1;
       } else {
-        right = middle;
+        // start there and loop
+        right = middle - 1;
       }
-    }
-    return -1;
- };
+  }
+  if (left === right && nums[left] > nums[left-1]) return left;
+  return 0;
+};
