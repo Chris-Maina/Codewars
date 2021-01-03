@@ -51,3 +51,20 @@ var removeDuplicates = function (nums) {
   }
   return pointer1 + 1;
 };
+
+var removeDuplicates = function (nums) {
+  if (!nums || !nums.length) return 0;
+
+  let slow = 0;
+  let fast = 0;
+  while (slow < nums.length - 1) {
+    fast = slow + 1;
+    if (nums[slow] === nums[fast]) {
+      nums.splice(fast, 1);
+    } else {
+      slow = fast;
+    }
+    fast++;
+  }
+  return nums.length;
+};
