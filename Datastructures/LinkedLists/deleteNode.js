@@ -3,8 +3,6 @@
 
  It is guaranteed that the node to be deleted is not a tail node in the list.
 
-
-
   Example 1:
 
   Input: head = [4,5,1,9], node = 5
