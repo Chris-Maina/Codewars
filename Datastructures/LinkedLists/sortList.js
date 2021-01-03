@@ -3,8 +3,6 @@
 
  Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?
 
-
-
  Example 1:
 
  Input: head = [4,2,1,3]
@@ -22,17 +20,17 @@
 
 */
 
- /////////////////////// SOLUTION ///////////////////////
+/////////////////////// SOLUTION ///////////////////////
 
 /**
  * Definition for singly-linked list.
  */
 function ListNode(val) {
-    this.val = val;
-    this.next = null;
+  this.val = val;
+  this.next = null;
 }
 /**
- * The solution below use merge sort.
+ * The solution below uses merge sort.
  * Divide the list into halves until you have a single node.
  * Combine/merge the halved lists while sorting them.
  * 
@@ -45,26 +43,31 @@ function sortList(head) {
 
 function divideMergeList(node) {
   if (node === null || node.next === null) return node;
-  const mid = findMiddleOfList(node);
-  const left = divideMergeList(head);
+  const mid = getMiddleOfList(node);
+
+  const left = divideMergeList(node);
   const right = divideMergeList(mid);
   return mergeTwoLists(left, right);
 }
 
-function findMiddleOfList(head) {
-  let slow = head;
+function getMiddleOfList(head) {
+  let midPrev = head;
   let fast = head;
   while (fast !== null && fast.next !== null) {
-    slow = slow.next;
+    midPrev = midPrev.next;
     fast = fast.next.next;
   }
-  return slow;
+  // mid represents the right side of head
+  // midPrev represents the left side of head
+  const mid = midPrev.next;
+  midPrev.next = null;
+  return mid;
 }
 
 function mergeTwoLists(l1, l2) {
   const dummyNode = new ListNode(0);
   const head = dummyNode;
-  while(l1 && l2) {
+  while (l1 && l2) {
     if (l1.val < l2.val) {
       dummyNode.next = l1;
       l1 = l1.next;
@@ -75,6 +78,14 @@ function mergeTwoLists(l1, l2) {
     dummyNode = dummyNode.next;
   }
 
+  if (l1 === null) {
+    dummyNode.next = l2;
+  }
+  if (l2 === null) {
+    dummyNode.next = l1;
+  }
+
+  // since the first node is invalid/ dummy node, access next valid node
   return head.next
 }
 
@@ -85,19 +96,19 @@ function mergeTwoLists(l1, l2) {
  * With bubble sort after the first iteration the least node will be on the left.
  * Time Complexity: O(N^2), where N is the number of nodes in the given list.
  */
-var sortList = function(head) {
-  if (!head || !head.next) return head;
+var sortList = function (head) {
+  if (head === null || head.next === null) return head;
   let currentNode = head;
   let tempNode;
 
-  while(currentNode !== null && currentNode.next !== null) {
+  while (currentNode !== null && currentNode.next !== null) {
     tempNode = currentNode.next;
     let swaped = false;
     while (tempNode !== null) {
       if (currentNode.val > tempNode.val) {
-        let tempVal = currentNode.val;
+        let val = currentNode.val;
         currentNode.val = tempNode.val;
-        tempNode.val = tempVal;
+        tempNode.val = val;
         swaped = true
       }
       tempNode = tempNode.next;
