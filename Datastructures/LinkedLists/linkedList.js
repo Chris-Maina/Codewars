@@ -14,11 +14,6 @@ export class LinkedList {
     this.head = null;
   }
 
-  insertFirst(data) {
-    const node = new Node(data, this.head);
-    this.head = node;
-  }
-
   size() {
     let count=0;
     let node = this.head;
@@ -64,7 +59,11 @@ export class LinkedList {
       node = node.next;
     }
     previous.next = null;
+  }
 
+  insertFirst(data) {
+    const node = new Node(data, this.head);
+    this.head = node;
   }
 
   insertLast(data) {
@@ -73,19 +72,16 @@ export class LinkedList {
     if(!lastNode) {
       this.head = node;
       return this.head;
-    } else {
-      lastNode.next = node;
-      return lastNode.next;
     }
+    lastNode.next = node;
+    return lastNode.next;
   }
 
   getAt(index) {
     let counter = 0;
-    let node = this.node;
+    let node = this.head;
     while(node) {
-      if(index === counter) {
-        return node;
-      }
+      if (index === counter) return node;
       counter++
       node = node.next;
     }
@@ -98,28 +94,39 @@ export class LinkedList {
       this.head = this.head.next;
       return;
     }
+    // Locate the node that comes before the node to be deleted
     const previousNode = this.getAt(index-1);
     if(!previousNode || !previousNode.next) return;
+    // Make the previous point to the deleted node next node
     previousNode.next = previousNode.next.next;
+
+    /**
+     *
+     * One can also get the node to be deleted. Copy next node's val followed by modifying next val
+     * const node = this.getAt(index);
+     * node.val = node.next.val;
+     * node.next = node.next.next;
+     */
   }
 
+  // 1 -> 2 -> 4  insert 3 at index 2
   insertAt(data, index) {
     const newNode = new Node(data);
-    if(!this.head) {
+    if (!this.head) {
       this.head = newNode;
+      return;
     };
-    if(index === 0) {
+    if (index === 0) {
       newNode.next = this.head;
       this.head = newNode;
-      // 0R
-      // this.head = new Node(data, this.head)
+      return;
     }
     const previousNode = this.getAt(index-1) || this.getLast();
     
     newNode.next = previousNode.next;
     previousNode.next = newNode;
     // OR
-    // const node = new Node(data, previous.next)
+    // const node = new Node(data, previousNode.next)
     // previousNode.next = node;
   }
 }
