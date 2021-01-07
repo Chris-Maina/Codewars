@@ -17,6 +17,8 @@
  return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 */
 
+/////////////////////// SOLUTION ///////////////////////
+
 // The problem below describes a Depth First Search problem.
 
 /**
@@ -28,6 +30,7 @@ var hasPathSum = function(root, sum) {
     if (!root) return false; 
     const pathSum = traverse(root, 0, sum)
     return pathSum === sum; 
+    // return isEqualSum(root, 0, sum)
 };
 
 /**
@@ -53,4 +56,21 @@ var traverse = function(root, count, sum) {
     pathCount = traverse(root.right, count+root.val, sum) 
   }
   return pathCount;
+}
+
+function isEqualSum(root, pathSum, sum) {
+  if (root.left === null && root.right === null) {
+    pathSum += root.val;
+    return pathSum;
+  }
+  pathSum += root.val;
+  if (root.left) {
+    pathSum = isEqualSum(root.left, pathSum, sum);
+  }
+  // Check if the you have the pathsum already
+  if (pathSum === sum) return true;
+  if (root.right) {
+    pathSum = isEqualSum(root.right, pathSum, sum);
+  }
+  return (pathSum === sum);
 }
