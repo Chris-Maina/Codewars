@@ -38,10 +38,12 @@ class Graph {
    * 1. Assigns the source vertex a weight of 0 and all other vertices infinity
    * 2. Visit each edge and relax the path distance V - 1 times
    * 3. Go through all the vertices and edges again to check for negative cycles
+   * Time complexity: 0(VE)
+   * Space complexity: 0(V)
    * @param {number} srcVertex 
    */
   bellmanFord(srcVertex) {
-    const infinity = 999;
+    const infinity = Number.MAX_SAFE_INTEGER;
     // create an array to store sum of weights/costs
     const dist = Array.from({ length: this.vertices }).map(el => el = infinity);
     dist[srcVertex] = 0;
@@ -52,6 +54,7 @@ class Graph {
         const [start, dest, weight] = element;
         if (dist[start] !== infinity && (dist[start] + weight < dist[dest])) {
           dist[dest] = dist[start] + weight;
+          // to get the path, mark the latest updated path here
         }
       });
     }

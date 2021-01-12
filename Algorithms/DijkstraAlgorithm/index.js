@@ -26,12 +26,12 @@ function isVisited(visitArr, point) {
     return Boolean(visitArr.find(el => JSON.stringify(el) === JSON.stringify(point)))
 }
 
-// Order vertices according to wieghts with the least first
+// Order vertices according to weights with the least first i.e Ascending order
 function getNextVertices(neigbors) {
     return neigbors.sort((a, b) => {
-        if (a < b) {
+        if (a.val < b.val) {
             return -1;
-        } else if (a > b) {
+        } else if (a.val > b.val) {
             return 1;
         }
         return 0;
@@ -53,6 +53,7 @@ function exploreNeighbors(vertex, visited, pQueue, distance, a) {
 
   const neighbors = [];
 
+  // Find neighbors
   for (let i=0; i<4; i++) {
       const rowNeighbor = row + rowDirection[i];
       const colNeighbor = col + colDirection[i];
@@ -70,6 +71,7 @@ function exploreNeighbors(vertex, visited, pQueue, distance, a) {
           val: distance[`${rowNeighbor}${colNeighbor}`]
       });
   }
+  // Arrange neighbors with the one with least distance first.
   const orderedNeighbors = getNextVertices(neighbors);
   pQueue.push(...orderedNeighbors);
   visited.push(vertex);
@@ -92,6 +94,7 @@ function dijkstra(srcDestArr, a) {
     distance[`${srcRow}${srcCol}`] = 0;
     pQueue.push([srcRow, srcCol]);
     while(pQueue.length) {
+        // Will be the min neighbour
         const poppedVertex = pQueue.shift();
         if (isVisited(visited, poppedVertex)) continue;
         if (poppedVertex[0] === null || poppedVertex[1] === null) return -1;
