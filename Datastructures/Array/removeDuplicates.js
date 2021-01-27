@@ -40,6 +40,7 @@
 /**
  * @param {number[]} nums
  * @return {number}
+ * Time complexity: 0(n)
  */
 var removeDuplicates = function (nums) {
   let pointer1 = 0
@@ -52,6 +53,11 @@ var removeDuplicates = function (nums) {
   return pointer1 + 1;
 };
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * Time complexity: 0(n)
+ */
 var removeDuplicates = function (nums) {
   if (!nums || !nums.length) return 0;
 
@@ -60,6 +66,7 @@ var removeDuplicates = function (nums) {
   while (slow < nums.length - 1) {
     fast = slow + 1;
     if (nums[slow] === nums[fast]) {
+      // splice has O(n) time complexity since it shift all elements after fast
       nums.splice(fast, 1);
     } else {
       slow = fast;
