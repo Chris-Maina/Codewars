@@ -5,7 +5,7 @@
 - Use element's right neighbor to determine if condition is met and decide whether to go left or right.
 - Gurantees Search Space is at least 2 in size at each step
 
-NB: In order to split the search space into 2, create a condition that leads you to the right side of the search space. You need to go right first. i.e. left = middle + 1 ----> right.
-You may find that the problem space is NOT sorted or cannot be sorted but the problem requires you to search.
+NB: An element's right neighbor is elementPosition + 1. Example in the sequence 3, 4, 5, we can 
+deduce that the right neighbor of element 4 is 5. Your search condition should observe both the current index and right neighbor. Your termination condition should allow a search space of 2. e.g left < right i.e. left, left === right.
 
 Examples: First Bad Version problems in this folder
