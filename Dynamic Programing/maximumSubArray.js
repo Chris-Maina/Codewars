@@ -76,7 +76,7 @@ var maxSubArray = function (nums) {
  * @return {number}
  */
 const maxSubArray = nums => {
-  if (!nums) return 0
+  if (!nums || (nums && !nums.length)) return 0
   return maxSumInArr(nums, 0, nums.length - 1);
 }
 
