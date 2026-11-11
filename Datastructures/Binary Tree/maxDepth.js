@@ -19,13 +19,16 @@
  */
 
 /**
- * Bottom up approach
+ * Depth of tree = height of tree
+ * This solution calculates the height of the root node using Bottom up approach 
  * @param {TreeNode} root
  * @return {number}
  */
 var maxDepth = function(root) {
     const depth = 0;
     if (!root) return depth;
+    // Depth of the root node is always 1. Therefore Line below would yield same answer
+    // return traverse(root, 1)
     const leftDepth = root.left ? traverse(root.left, depth + 1) : depth;
     const rightDepth = root.right ? traverse(root.right, depth + 1) : depth;
     return Math.max(leftDepth, rightDepth) + 1;

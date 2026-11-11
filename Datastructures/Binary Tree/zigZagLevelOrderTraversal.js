@@ -40,23 +40,25 @@ var zigzagLevelOrder = function (root) {
   const queue = [];
   const visited = []
   queue.push(root);
-  return moveZigZag(queue, visited, 'left');
+  moveZigZag(queue, visited, 'right');
+  return visited;
 };
 
 /**
  * @param {TreeNode[]} queue
  * @param {number[]} visited
  * @param {string} dir
+ * @return {null}
  * Implements BFS by switching between queue and stack implementation using dir
  */
 function moveZigZag(queue, visited, dir) {
-  if (!queue.length) return visited;
+  if (!queue.length) return null;
 
   const level = [];
   let len = queue.length;
   while (len > 0) {
     let node = null;
-    if (dir === 'left') {
+    if (dir === 'right') {
       node = queue.shift();
       node.left && queue.push(node.left);
       node.right && queue.push(node.right);
@@ -71,5 +73,5 @@ function moveZigZag(queue, visited, dir) {
   level.length && visited.push(level);
   // change direction
   dir = dir === 'left' ? 'right' : 'left';
-  return moveZigZag(queue, visited, dir);
+  moveZigZag(queue, visited, dir);
 }

@@ -23,6 +23,7 @@
  * }
  */
 /**
+ * Inorder : Left Root Right
  * @param {TreeNode} root
  * @return {number[]}
  */
@@ -50,3 +51,31 @@ var inorderTraversal = function(root) {
     }
     return resultArr;
 };
+
+/**
+ * Recursive solution
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
+  if (root === null) return [];
+  const arr = [];
+  traverseTree(root, arr);
+  return arr;
+};
+
+/**
+ * Visit Left, Root, Right
+ * @param {TreeNode} node
+ * @param {number[]} arr
+ * @return void
+ */
+const traverseTree = (node, arr) => {
+  if (node.left) {
+    traverseTree(node.left, arr);
+  }
+  arr.push(node.val);
+  if (node.right) {
+    traverseTree(node.right, arr);
+  }
+}

@@ -57,12 +57,12 @@ function getPathsWithSum(node, sum, pathSum, path, result) {
   /**
    * Pass pathSum and path parameters by value. 
    * Create a new copy of path object/array to facilitate this.
-   * Since you want to view modified version of result/have same values when mutated somewhere, pass by reference
+   * Since you want to view modified version of result and have same values when mutated somewhere, pass by reference
    * 
-   * If you performed mutative actions like push then passing it as a parameter (pass by reference)i.e.
+   * If you performed mutative actions like push passing it as a parameter (pass by reference)i.e.
    * path.push(node.left.val)
    * getPathsWithSum(..., path, result)
-   * It would have the same values on the next invocation of getPathsWithSum line 73
+   * would have the same values on the next invocation of getPathsWithSum line 73
    * 
    * https://medium.com/@mayuminishimoto/javascript-pass-by-value-and-pass-by-reference-f9b80d2221b8
    */

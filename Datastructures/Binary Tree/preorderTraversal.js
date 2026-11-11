@@ -22,25 +22,31 @@
  */
 /**
  * Recursive approach
+ * Preorder: Root Left Right
  * @param {TreeNode} root
  * @return {number[]}
  */
 var preorderTraversal = function(root) {
   let arr = [];
   if (!root) return arr;
-  arr = traverse(root, arr);
+  traverse(root, arr);
   return arr;
 };
 
+/**
+ * 
+ * @param {TreeNode} root
+ * @param {number[]} arr
+ * @return void
+ */
 var traverse = (root, arr) => {
   if (root.left === null && root.right === null) {
       arr.push(root.val);
-      return arr;  
+      return;  
   }
   arr.push(root.val);
   root.left && traverse(root.left, arr);
   root.right && traverse(root.right, arr);
-  return arr;
 }
 /**
  * Iterative approach

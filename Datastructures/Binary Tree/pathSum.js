@@ -56,3 +56,36 @@ var traverse = function(root, count, sum) {
   }
   return pathCount;
 }
+
+//////// OR ////////
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+var hasPathSum = function (root, targetSum) {
+  if (root === null) return false;
+  return pathSumFound(root, root.val, targetSum);
+};
+
+/**
+ * @param {TreeNode} node
+ * @param {number} pathSum
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+const pathSumFound = (node, pathSum, targetSum) => {
+  if (node.left === null && node.right === null) {
+    return (pathSum === targetSum);
+  }
+  let found = false;
+  if (node.left) {
+    found = pathSumFound(node.left, pathSum + node.left.val, targetSum);
+  }
+  if (found) {
+    return found;
+  } else if (node.right) {
+    return pathSumFound(node.right, pathSum + node.right.val, targetSum);
+  }
+  return found;
+}

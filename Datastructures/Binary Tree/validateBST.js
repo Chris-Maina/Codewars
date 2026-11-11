@@ -77,8 +77,8 @@ var isValidBST = function(root) {
 }
 
 /**
- * Nodes on the left have a lower limit of null but higher limit of root node value e.g null and 5 in Example 2
- * Nodes on the right have a lower limit of root node value i.e 5, and a higher limit of null.
+ * Nodes on the left have a lower limit of null but higher limit of root node value e.g null and 5
+ * In example 2 modes on the right have a lower limit of root node value i.e 5, and a higher limit of null.
  * Any node in the left should be less than the higher limit. The reverse is false i.e root.val >= high
  * Any node in the right subtree should higher than the lower bound. The reverse is false i.e root.val <= low
  * @param {TreeNde} root 

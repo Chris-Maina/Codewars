@@ -22,6 +22,8 @@
  * }
  */
 /**
+ * Post order: Left Right Root
+ * Creates the answer from the end/last element i.e root, backwards.
  * @param {TreeNode} root
  * @return {number[]}
  */
@@ -39,3 +41,31 @@ var postorderTraversal = function (root) {
 
     return resultArr;
 };
+
+/**
+ * Recursive solution
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function (root) {
+  if (!root) return [];
+  const arr = [];
+  traverseTree(root, arr);
+  return arr;
+};
+
+/**
+ * Visit the Left, Right, Root
+ * @param {TreeNode} node
+ * @param {number[]} arr
+ * @return void
+ */
+const traverseTree = (node, arr) => {
+  if (node.left) {
+    traverseTree(node.left, arr);
+  }
+  if (node.right) {
+    traverseTree(node.right, arr);
+  }
+  arr.push(node.val);
+}
