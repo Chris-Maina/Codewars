@@ -6,8 +6,8 @@
  */
 
 class MinHeap {
-  constructor() {
-    this.items = [];
+  constructor(items) {
+    this.items = items || [];
   }
 
   parentIndex = index => Math.floor((index - 1) / 2);
