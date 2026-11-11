@@ -49,6 +49,7 @@ var insertionSortList = function (head) {
 
   let currentNode = head.next;
   while (currentNode !== null) {
+    // iterator is the sorted section of the linked list
     let iterator = head;
     /**
      * Compare key with each node on the left of it until a node with value smaller than it is found.

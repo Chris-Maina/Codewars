@@ -40,18 +40,18 @@ var isPalindrome = function (head) {
 function getReversedAndCopiedLinkedList(head) {
   let curr = head;
   let reversed = null;
-  let original = null;
-  let originalHead = null;
+  let copy = null; // copy iterator
+  let copyHead = null;
 
   while (curr) {
     // Make a copy of the linked list
     let newNode = new ListNode(curr.val);
-    if (!original) {
-      original = newNode;
-      originalHead = original;
+    if (!copy) {
+      copy = newNode;
+      copyHead = copy;
     } else {
-      original.next = newNode;
-      original = original.next;
+      copy.next = newNode;
+      copy = copy.next;
     }
 
     // Reverse the linked list
@@ -60,5 +60,5 @@ function getReversedAndCopiedLinkedList(head) {
     reversed = curr;
     curr = next;
   }
-  return { reversed, copy: originalHead }
+  return { reversed, copy: copyHead }
 }

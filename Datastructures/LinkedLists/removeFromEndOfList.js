@@ -41,13 +41,14 @@ var removeNthFromEnd = function (head, n) {
 
   let temp = head;
   // Get size of linked list
-  let size = 1;
-  while (temp.next) {
-    temp = temp.next;
+  let size = 0;
+  while (temp) {
     size++;
+    temp = temp.next;
   }
   // reassign temp
   temp = head;
+  // get position at which to delete
   size -= n;
 
   // handle deleting head
@@ -60,7 +61,15 @@ var removeNthFromEnd = function (head, n) {
     temp = temp.next;
     if (!temp) break;
   }
-  if (!temp || !temp.next) return null;
+  // OR
+  // let counter = 0;
+  // while(temp) {
+  //   if (counter === size - 1) break;
+  //   counter++;
+  //   temp = temp.next;
+  // }
+
+  if (!temp || !temp.next) return head;
   // delete here
   temp.next = temp.next.next;
   return head;

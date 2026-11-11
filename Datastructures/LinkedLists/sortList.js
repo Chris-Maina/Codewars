@@ -42,6 +42,7 @@ function sortList(head) {
 }
 
 function divideMergeList(node) {
+  // Terminate when you have one node i.e. last node
   if (node === null || node.next === null) return node;
   const mid = getMiddleOfList(node);
 
