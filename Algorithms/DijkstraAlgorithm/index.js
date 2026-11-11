@@ -44,14 +44,12 @@ function isValid(row, col, a) {
     return (rowNum >= 0 && colNum >= 0 && rowNum < a.length && colNum < a[0].length);
 }
 
-function exploreNeighbors(vertex, visited, pQueue, distance, a) {
-  const [row, col] = vertex;
+function exploreNeighbors(vertex, visited, distance, a) {
+  const {x : row, y: col} = vertex;
 
-  // Coordinates of neighbors on cartesian plane
-  const rowDirection = [-1, 0, 0, 1];
-  const colDirection = [0, -1, 1, 0];
-
-  const neighbors = [];
+  // Coordinates of neighbors on cartesian plane i.e West, East, North, South
+  const rowDirection = [1, -1, 0, 0];
+  const colDirection = [0, 0, 1, -1];
 
   // Find neighbors
   for (let i=0; i<4; i++) {
@@ -59,51 +57,64 @@ function exploreNeighbors(vertex, visited, pQueue, distance, a) {
       const colNeighbor = col + colDirection[i];
 
       if (!isValid(rowNeighbor, colNeighbor, a)) continue;
-      if (isVisited(visited, [rowNeighbor, colNeighbor])) continue;
+      if (visited[`${rowNeighbor}${colNeighbor}`]) continue;
       
       const tempDist = distance[`${row}${col}`] + a[rowNeighbor][colNeighbor];
       if (tempDist < distance[`${rowNeighbor}${colNeighbor}`] ) {
           distance[`${rowNeighbor}${colNeighbor}`] = tempDist;
       }
-      neighbors.push({
-          x: rowNeighbor,
-          y: colNeighbor,
-          val: distance[`${rowNeighbor}${colNeighbor}`]
-      });
   }
-  // Arrange neighbors with the one with least distance first.
-  const orderedNeighbors = getNextVertices(neighbors);
-  pQueue.push(...orderedNeighbors);
-  visited.push(vertex);
 }
 
+const enqueueToPriorityQueue = (row, col, priority, pQueue) => {
+  let added = false;
+  for (let i = 0; i < pQueue.length; i++) {
+    const element = pQueue[i];
+    if (priority < element.val) {
+      pQueue.splice(i, 0, { x: row, y: col, val: priority });
+      added = true;
+      break;
+    }
+  }
+  if (!added) {
+    pQueue.push({ x: row, y: col, val: priority });
+  }
+}
+
+/**
+ * 
+ * @param {number[]} srcDestArr 
+ * @param {number[][]} a - adjacency matrix
+ */
 function dijkstra(srcDestArr, a) {
     const [srcRow, srcCol, destRow, destCol] = srcDestArr;
     const infinity = 4000;
     const pQueue = [];
-    const visited = [];
+    const visited = {};
     const distance = {};
 
     // Set all nodes to infinity
     for(let row=0; row < a.length; row++) {
         for (let col = 0; col<a[row].length; col++) {
             distance[`${row}${col}`] = infinity;
+            // add to priority queue
+            if (row !== srcRow && col !== srcCol) {
+              enqueueToPriorityQueue(row, col, a[row][col], pQueue)
+            }
         }
     }
 
     distance[`${srcRow}${srcCol}`] = 0;
-    pQueue.push([srcRow, srcCol]);
     while(pQueue.length) {
         // Will be the min neighbour
         const poppedVertex = pQueue.shift();
-        if (isVisited(visited, poppedVertex)) continue;
-        if (poppedVertex[0] === null || poppedVertex[1] === null) return -1;
-        if (poppedVertex[0] === destRow && poppedVertex[1] === destCol) {
-            return distance[`${destRow}${destCol}`];
-        }
-        exploreNeighbors(poppedVertex, visited, pQueue, distance, a);
+
+        // explore unvisited neighbors
+        exploreNeighbors(poppedVertex, visited, distance, a);
+        // visit popped vertex
+        visited[`${poppedVertex.x}${poppedVertex.y}`] = true;
     }
-    return -1;
+    return distance[`${destRow}${destCol}`] || -1;
 }
 
 
