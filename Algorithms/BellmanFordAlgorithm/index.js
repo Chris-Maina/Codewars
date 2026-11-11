@@ -7,6 +7,11 @@
 /////////////// Solution ///////////////
 
 class Graph {
+  /**
+   * 
+   * @param {number} vertices 
+   * @param {number[]} graph  - edge list
+   */
   constructor(vertices, graph = []) {
     this.vertices = vertices;
     this.graph = graph;
@@ -46,6 +51,8 @@ class Graph {
     const infinity = Number.MAX_SAFE_INTEGER;
     // create an array to store sum of weights/costs
     const dist = Array.from({ length: this.vertices }).map(el => el = infinity);
+    // To get the path use an array
+    // const path = Array.from({ length: this.vertices });
     dist[srcVertex] = 0;
 
     // relax edges of all vertices |V| - 1 times
@@ -55,6 +62,7 @@ class Graph {
         if (dist[start] !== infinity && (dist[start] + weight < dist[dest])) {
           dist[dest] = dist[start] + weight;
           // to get the path, mark the latest updated path here
+          // path[dest] = start;
         }
       });
     }
@@ -65,7 +73,7 @@ class Graph {
       if (dist[start] !== infinity && (dist[start] + weight < dist[dest])) return;
     });
 
-    return dist;
+    return { dist, path };
   }
 }
 
@@ -79,4 +87,4 @@ const dist = [
 
 const graph = new Graph(5, dist);
 const sol = graph.bellmanFord(1);
-graph.mapVertexToWeight(sol)
+console.log('dist', graph.mapVertexToWeight(sol.dist))
