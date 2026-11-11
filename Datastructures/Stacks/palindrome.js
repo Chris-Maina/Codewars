@@ -23,3 +23,17 @@ const palindrome = word => {
 
   return rword === word
 } 
+
+/**
+ * This solution relies on the premise that strings are a collection/array
+ * of character i.e a stack
+ * @param {string} word 
+ */
+const palindrome = word => {
+  let rword = '';
+
+  for (let i = word.length - 1; i >= 0; i--) {
+    rword += word[i]
+  }
+  return rword === word;
+}

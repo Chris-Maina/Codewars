@@ -50,20 +50,26 @@ const evaluateExp = (op1, op2, operator) => {
  * @return {number}
  */
 var evalRPN = function(tokens) {
-    const validOperations = ['+', '-', '*', '/'];
+    const validOperations = {
+      '+': true,
+      '-': true,
+      '*': true,
+      '/': true,
+    }
     const stack = [];
     let firstOperand;
     let secondOperand;
     let result;
-    tokens.forEach((el, index) => {
-        if (validOperations.some(operator => operator === el)) {
+    for (const el of tokens) {
+        if (validOperations[el]) {
             firstOperand = stack.pop();
             secondOperand = stack.pop();
             result = evaluateExp(secondOperand, firstOperand, el);
             stack.push(Math.trunc(result))
         } else {
+            if (isNaN(el)) continue;
             stack.push(el);
         }
-    });
+    };
     return stack.length && stack.pop();
 };
